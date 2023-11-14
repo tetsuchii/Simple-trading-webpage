@@ -1,0 +1,53 @@
+<%- include ('header') -%>
+	
+	
+	<%- include ('navbar') -%>
+	
+	
+	<div class="container">
+  <div class="row">
+    <div class="">
+      
+    </div>
+    <div class="">
+      <br/>
+	  <br/>
+	  <br/>
+    </div>
+    <div class="">
+      
+    </div>
+  </div>
+</div>
+	
+<div class="container">
+    <div class="col-sm-5">
+<% if (user) { %>
+<h1><%= user.name %></h1>
+	  <h3><%= user.email %></h3>
+	  <% } %>
+	  <div class="row">
+		<div class="col-sm">
+		<h3>Kínál:</h3>
+		<ul>
+		<% csokik.forEach(function(egyCsoki) { %>
+			<% if(egyCsoki.status === 'kinal') {%>
+			<li><%= egyCsoki.name %><a href="/<%= user._id %>/edit/del/<%= egyCsoki._id %>"><i class="fa fa-trash-o"></i></a> <a href="/<%= user._id %>/edit/<%= egyCsoki._id %>"><i class="fa fa-pencil"></i></a></li>
+		<%}%><% }); %>
+		</ul>
+		</div>
+		<div class="col-sm">
+		<h3>Keres:</h3>
+		<ul>
+		<% csokik.forEach(function(egyCsoki) { %>
+		<% if(egyCsoki.status === 'keres') {%>
+			<li><%= egyCsoki.name %><a href="/<%= user._id %>/edit/del/<%= egyCsoki._id %>"><i class="fa fa-trash-o"></i></a><a href="/<%= user._id %>/edit/<%= egyCsoki._id %>"><i class="fa fa-pencil"></i></a></li>
+		<%}%><% }); %>
+		</ul>
+		</div>
+	</div>	
+	</div>
+	<br/>
+	<a href="/<%= user._id %>" button type="button" class="btn btn-warning">Vissza</button></a>
+  </div>
+<%- include ('footer') -%>

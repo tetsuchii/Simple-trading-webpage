@@ -1,0 +1,94 @@
+<%- include ('header') -%>
+	
+	<%- include ('navbar') -%>
+	
+	
+
+	<div class="container">
+  <div class="row">
+    <div class="">
+      
+    </div>
+    <div class="">
+      <br/>
+	  <br/>
+	  <br/>
+    </div>
+    <div class="">
+      
+    </div>
+  </div>
+</div>
+	
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6" style="background: transparent">
+    </div>
+	<div class="col-sm-4 position-fixed" id="me" style="background: transparent">
+      <div class="col-sm" >
+	  <% if (user) { %>
+	  <h1><%= user.name %></h1>
+	  <h3><%= user.email %></h3>
+	  <% } %>
+	  <div class="row">
+		<div class="col-sm">
+		<h3>Kínál:</h3>
+		<ul>
+		<% csokik.forEach(function(egyCsoki) { %>
+		<% if(egyCsoki.status === 'kinal') {%>
+			<li><%= egyCsoki.name %></li>
+		<% } %><%});%>
+		</ul>
+		</div>
+		<div class="col-sm">
+		<h3>Keres:</h3>
+		<ul>
+		<% csokik.forEach(function(egyCsoki) { %>
+		<% if(egyCsoki.status === 'keres') {%>
+			<li><%= egyCsoki.name %></li>
+		<% } %><%});%>
+		</ul>
+		</div>
+	  </div>
+	  </div>
+    </div>
+   
+    <div class="col-sm-5" id="others" style="background: transparent">
+
+<% users.forEach(function(egyUser) { %>
+<% if(egyUser.name !== user.name) {%>
+<div class="col-sm" >
+	  <h1><%= egyUser.name %></h1>
+	  <h3><%= egyUser.email %></h3>
+	  <div class="row">
+		<div class="col-sm">
+		<h3>Kínál:</h3>
+		<ul>
+		<% nscsokik.forEach(function(egynsCsoki) { %>
+		<% if(egynsCsoki.status === 'kinal') {%>
+		<% if(egynsCsoki._tulajdonos.name === egyUser.name) {%>
+			<li><%= egynsCsoki.name %></li>
+		<% } %><% } %><%});%>
+		</ul>
+		</div>
+		<div class="col-sm">
+		<h3>Keres:</h3>
+		<ul>
+		<% nscsokik.forEach(function(egynsCsoki) { %>
+		<% if(egynsCsoki.status === 'keres') {%>
+		<% if(egynsCsoki._tulajdonos.name === egyUser.name) {%>
+			<li><%= egynsCsoki.name %></li>
+		<% } %><% } %><%});%>
+		</ul>
+		</div>
+		</div>
+	  </div>
+	  <br/>
+<% } %><%});%>	  
+	  
+    </div>
+  </div>
+</div>
+	
+<%- include ('footer') -%>

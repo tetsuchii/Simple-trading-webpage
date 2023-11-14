@@ -1,0 +1,58 @@
+<%- include ('header') -%>
+	
+	<%- include ('navbar') -%>
+	
+	
+	<div class="container">
+  <div class="row">
+    <div class="">
+      
+    </div>
+    <div class="">
+      <br/>
+	  <br/>
+	  <br/>
+    </div>
+    <div class="">
+      
+    </div>
+  </div>
+</div>
+	
+<div class="container">
+    <div class="col-sm-5">
+<% if (user) { %>
+<h1><%= user.name %></h1>
+	  <h3><%= user.email %></h3>
+	  <% } %>
+		Keres/kínál:
+		<br/>
+		<form method="post">
+		<div class="form-check">
+		  <input class="form-check-input" type="radio" name="status" id="keres" value="keres">
+		  <label class="form-check-label" for="exampleRadios1">
+			Keres
+		  </label>
+		</div>
+		<div class="form-check">
+		  <input class="form-check-input" type="radio" name="status" id="kinal" value="kinal">
+		  <label class="form-check-label" for="exampleRadios2">
+			Kínál
+		  </label>
+		</div>
+		<br/>
+		Milyen csokit?
+		<br/>
+	
+		  <div class="form-group">
+			<input type="text" class="form-control" name="name" id="name" placeholder="Írd be a csokit" 
+				value="<%= (typeof csoki === 'undefined') ? '' : csoki.name %>">
+		  </div>
+		  <input type="submit" class="btn btn-primary" value="Mehet!"/>
+		</form>
+		<br/>
+    </div>
+	<br/>
+	<a href="/<%= user._id %>" button type="button" class="btn btn-warning">Vissza</button></a>
+  </div>
+<%- include ('footer') -%>

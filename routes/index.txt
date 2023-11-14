@@ -1,0 +1,65 @@
+const authMW = require('../middleware/user/authMW');
+const checkPassMW = require('../middleware/user/checkPassMW');
+const renderMW = require('../middleware/user/renderMW');
+const getMailMW = require('../middleware/user/getMailMW');
+const checkPass = require('../middleware/user/checkPassMW');
+const handleWrongPassMW = require('../middleware/user/HandleWrongPassMW');
+const sendPassMW = require('../middleware/user/sendPassMW');
+const getSajatadatokMW = require('../middleware/user/getSajatadatokMW');
+const getAdatokMW = require('../middleware/csoki/getAdatokMW');
+const saveCsokiMW = require('../middleware/csoki/saveCsokiMW');
+const getCsokiMW = require('../middleware/csoki/getCsokiMW');
+const delCsokiMW = require('../middleware/csoki/delCsokiMW');
+const searchMW = require('../middleware/csoki/searchMW');
+
+module.exports = function (app) {
+    const objRepo = {};
+
+    app.use('/',
+        regUserMW(objRepo),
+        renderMW(objRepo, 'index'));
+
+    app.get('/login',
+        getMailMW(objRepo),
+        checkPassMW(objRepo),
+		handleWrongPassMW(objRepo)
+        renderMW(objRepo, 'bejelentkezes'));
+	app.use('/login',
+		getMailMW(objRepo),
+        checkPassMW(objRepo),
+		handleWrongPassMW(objRepo),
+        renderMW(objRepo, 'bejelentkezes'));
+    app.get('/pass',
+        getMailMW(objRepo),
+        sendPassMW(objRepo),
+        renderMW(objRepo, 'elfelejtett'));	
+    app.get('/:felhaszid',
+        authMW(objRepo),
+        getSajatadatokMW(objRepo),
+        getAdatokMW(objRepo),
+		searchMW(objRepo),
+        renderMW(objRepo, 'fooldal'));
+    app.use('/:felhaszid/new',
+        authMW(objRepo),
+        saveCsokiMW(objRepo),
+        renderMW(objRepo, 'hozzaad'));
+	app.get('/:felhaszid/new',
+        authMW(objRepo),
+        saveCsokiMW(objRepo),
+        renderMW(objRepo, 'hozzaad'));
+    app.use('/:felhaszid/edit',
+        authMW(objRepo),
+        getCsokiMW(objRepo),
+        saveCsokiMW(objRepo),
+        renderMW(objRepo, 'torol'));
+	app.get('/:felhaszid/edit',
+        authMW(objRepo),
+        getCsokiMW(objRepo),
+        saveCsokiMW(objRepo),
+        renderMW(objRepo, 'torol'));
+    app.get('/:felhaszid/del',
+        authMW(objRepo),
+        getCsokiMW(objRepo),
+        delCsokiMW(objRepo),
+        renderMW(objRepo, 'torol'));
+};

@@ -1,0 +1,53 @@
+middlewares/user
+	regUserMW
+	getMailMW
+	checkPassMW
+	handleWrongPassMW
+	sendPassMW
+
+middlewares/csoki
+	getSajatadatokMW
+	getAdatokMW
+	saveCsoki
+	getCsokiMW
+	delCsokiMW
+	searchMW
+
+GET /			-index.html	(regisztráció)
+	regUserMW
+	renderMW(index.html)
+
+GET,POST /login		-jelszó ellenőrzés
+	getMailMW
+	checkPassMW
+	handleWrongPassMW
+	renderMW(bejelentkezes.html)
+
+GET /pass		-elfelejtett.html
+	getMailMW
+	sendPassMW
+	renderMW(elfelejtett.html)	
+
+GET /:felhaszid		-fooldal.html
+	authMW
+	getSajatadatokMW
+	getAdatokMW
+	searchMW
+	renderMW(fooldal.html)
+
+GET,POST /:felhaszid/new	-hozzaad.html
+	authMW
+	saveCsoki
+	renderMW(hozzaad.html)
+
+GET,POST /:felhaszid/edit	-torol.html (szerkeszt)
+	authMW
+	getCsokiMW
+	saveCsokiMW
+	renderMW(torol.html)
+
+GET /:felhaszid/del	-torol.html (torol)
+	authMW
+	getCsokiMW
+	delCsokiMW
+	renderMW(torol.html)
